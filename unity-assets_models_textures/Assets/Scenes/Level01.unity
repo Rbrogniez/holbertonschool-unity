@@ -239,9 +239,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ab1b81a7b5e754478209b893258311f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerSpeed: 25
-  jumpHeight: 6
-  gravityValue: -60
+  playerSpeed: 30
+  jumpHeight: 10
+  gravityValue: -80
 --- !u!143 &140947633
 CharacterController:
   m_ObjectHideFlags: 0
@@ -268,6 +268,11 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &140947637 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7389951492954607619, guid: e5866bfd25b956e43b83ca85b7c5e1ec, type: 3}
+  m_PrefabInstance: {fileID: 7467885467355735148}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &149742055
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1771,6 +1776,7 @@ GameObject:
   - component: {fileID: 1751244293}
   - component: {fileID: 1751244292}
   - component: {fileID: 1751244291}
+  - component: {fileID: 1751244294}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1845,13 +1851,34 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1751244290}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.95, y: 6.2, z: -19.9}
+  m_LocalRotation: {x: 0.078459114, y: 0, z: 0, w: 0.99691737}
+  m_LocalPosition: {x: 0, y: 2.5, z: -6.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 9, y: 0, z: 0}
+--- !u!114 &1751244294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1751244290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1c202719e679d04ba8a6583339f0847, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maximumSpeed: 0
+  rotationSpeed: 3
+  jumpSpeed: 0
+  jumpButtonGracePeriod: 0
+  cameraTransform: {fileID: 140947637}
+  animator: {fileID: 0}
+  characterController: {fileID: 0}
+  ySpeed: 0
+  originalStepOffset: 0
 --- !u!1001 &1798460216
 PrefabInstance:
   m_ObjectHideFlags: 0
