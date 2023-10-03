@@ -1,49 +1,52 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-public class CharacterControllerMovement : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
-    private CharacterController controller;
-    private Vector3 playerVelocity;
-    private bool groundedPlayer;
-    public float playerSpeed = 5.0f;
-    public float jumpHeight = 1.0f;
-    public float gravityValue = -9.81f;
+    public CharacterController controller;
+    public Transform camera;
     public Transform player;
 
-    private void Start()
+    public float speed = 5f;
+    public float gravityMul;
+    public float jumpForce;
+
+    private Vector3 direction;
+
+    // public float turnSmoothTime = 0.1f;
+    // float smoothVelocity;
+
+    void Awake()
     {
         controller = GetComponent<CharacterController>();
     }
 
+    // Update is called once per frame
     void Update()
     {
-        groundedPlayer = controller.isGrounded;
+        float horizontal = Input.GetAxis("Horizontal") * speed;
+        float vertical = Input.GetAxis("Vertical") * speed;
+        direction = Quaternion.Euler(0, camera.transform.eulerAngles.y, 0) * new Vector3(horizontal, direction.y, vertical);
 
-        if (groundedPlayer && playerVelocity.y < -20)
+        if (controller.isGrounded)
         {
-            playerVelocity.y = 0f;
-            ;
+            direction.y = 0f;
+            if (Input.GetKeyDown("space"))
+            {
+                direction.y = jumpForce;
+            }
         }
 
-        Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-        controller.Move(move * Time.deltaTime * playerSpeed);
-
-        // Sauter
-        if (Input.GetButtonDown("Jump") && groundedPlayer)
+        if (controller.transform.position.y < -20.0f)
         {
-            playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
+            // Debug.Log("player fell");
+            controller.enabled = false;
+            transform.position = new Vector3(0, 20, 0);
+            controller.enabled = true;
         }
 
-        if (player.position.y <= -10.0f)
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-            player.position = new Vector3(player.position.x, player.position.y * 20.0f, player.position.z);
-        }
-
-        playerVelocity.y += gravityValue * Time.deltaTime;
-        controller.Move(playerVelocity * Time.deltaTime);
+        direction.y = direction.y + (Physics.gravity.y * gravityMul * Time.deltaTime);
+        controller.Move(direction * Time.deltaTime);
     }
 }
